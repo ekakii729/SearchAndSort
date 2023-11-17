@@ -1,6 +1,84 @@
+/*
+ * Author: Abhay Manoj
+ * Purpose: A library that contains several searches and sorts
+ * Date of Creation: October 20, 2023
+ */
+
 package com.ekakii729.searchAndSort;
 
 public class SortSearchLibrary {
+
+    /** Method Name: sequentialSearch
+     * @Author Abhay Manoj
+     * @Date November 16, 2023
+     * @Modified November 16, 2023
+     * @Description runs sequential search
+     * @Parameters nums - array to be searched, target - element that is being looked for
+     * @Returns index of the element being looked for, Data Type: Integer
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public int sequentialSearch(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) if (nums[i] == target) return i;
+        return -1;
+    }
+
+    /** Method Name: sequentialSearch
+     * @Author Abhay Manoj
+     * @Date November 16, 2023
+     * @Modified November 16, 2023
+     * @Description runs sequential search
+     * @Parameters strings - array to be searched, target - element that is being looked for
+     * @Returns index of the element being looked for, Data Type: Integer
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public int sequentialSearch(String[] strings, String target) {
+        for (int i = 0; i < strings.length; i++) if (strings[i].equals(target)) return i;
+        return -1;
+    }
+
+    /** Method Name: binarySearch
+     * @Author Abhay Manoj
+     * @Date November 16, 2023
+     * @Modified November 16, 2023
+     * @Description runs binary search
+     * @Parameters nums - array to be searched, lowestIndex - lowest index of array, highestIndex - highest index of array, target - element that is being looked for
+     * @Returns index of the element being looked for, Data Type: Integer
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public int binarySearch(int[] nums, int lowestIndex, int highestIndex, int target) {
+        if (highestIndex >= lowestIndex && lowestIndex <= nums.length - 1) {
+            int middleIndex = (lowestIndex + highestIndex) / 2; // the middle index of the array
+            if (nums[middleIndex] == target) return middleIndex;
+            if (nums[middleIndex] > target) return binarySearch(nums, lowestIndex, middleIndex - 1, target);
+            return binarySearch(nums, middleIndex + 1, highestIndex, target);
+        } return -1;
+    }
+
+    /** Method Name: binarySearch
+     * @Author Abhay Manoj
+     * @Date November 16, 2023
+     * @Modified November 16, 2023
+     * @Description runs binary search
+     * @Parameters strings - array to be searched, lowestIndex - lowest index of array, highestIndex - highest index of array, target - element that is being looked for
+     * @Returns index of the element being looked for, Data Type: Integer
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public int binarySearch(String[] strings, int lowestIndex, int highestIndex, String target) {
+        if (highestIndex >= lowestIndex && lowestIndex <= strings.length - 1) {
+            int middleIndex = (lowestIndex + highestIndex) / 2; // the middle index of the array
+            if (strings[middleIndex].equals(target)) return middleIndex;
+            if (strings[middleIndex].compareTo(target) > 0) return binarySearch(strings, lowestIndex, middleIndex - 1, target);
+            return binarySearch(strings, middleIndex + 1, highestIndex, target);
+        } return -1;
+    }
 
     /** Method Name: selectionSort
      * @Author Abhay Manoj
