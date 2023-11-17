@@ -173,7 +173,7 @@ public class SortSearchLibrary {
      * Throws/Exceptions: N/A
      */
 
-    private static void merge(int[] nums, int leftMostIndex, int middleIndex, int rightMostIndex) {
+    private void merge(int[] nums, int leftMostIndex, int middleIndex, int rightMostIndex) {
         int sizeOfLeftArray = middleIndex - leftMostIndex + 1; // size of the left array
         int sizeOfRightArray = rightMostIndex - middleIndex; //  size of the right array
         int[] leftArray = new int[middleIndex - leftMostIndex + 1]; // the left array
@@ -190,15 +190,7 @@ public class SortSearchLibrary {
                 nums[k] = rightArray[j];
                 j++;
             } k++;
-        } while (i < sizeOfLeftArray) {
-            nums[k] = leftArray[i];
-            i++;
-            k++;
-        } while (j < sizeOfRightArray) {
-            nums[k] = rightArray[j];
-            j++;
-            k++;
-        }
+        } copyRemainingElements(nums, leftArray, rightArray, i, j, k);
     }
 
     /** Method Name: merge
@@ -212,7 +204,7 @@ public class SortSearchLibrary {
      * Throws/Exceptions: N/A
      */
 
-    private static void merge(String[] strings, int leftMostIndex, int middleIndex, int rightMostIndex) {
+    private void merge(String[] strings, int leftMostIndex, int middleIndex, int rightMostIndex) {
         int sizeOfLeftArray = middleIndex - leftMostIndex + 1; // size of the left array
         int sizeOfRightArray = rightMostIndex - middleIndex; //  size of the right array
         String[] leftArray = new String[middleIndex - leftMostIndex + 1]; // the left array
@@ -229,11 +221,49 @@ public class SortSearchLibrary {
                 strings[k] = rightArray[j];
                 j++;
             } k++;
-        } while (i < sizeOfLeftArray) {
+        } copyRemainingElements(strings, leftArray, rightArray, i, j, k);
+    }
+
+    /** Method Name: copyRemainingElements
+     * @Author Abhay Manoj
+     * @Date November 16, 2023
+     * @Modified November 16, 2023
+     * @Description copies remaining elements from smaller array to main array
+     * @Parameters nums - main array, leftArray - left sorted array, rightArray - right sorted array, i - index for left array, j - index for right array, k - index of merged array
+     * @Returns N/A, Data Type: Void
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private void copyRemainingElements(int[] nums, int[] leftArray, int[] rightArray, int i, int j, int k) {
+        while (i < leftArray.length) {
+            nums[k] = leftArray[i];
+            i++;
+            k++;
+        } while (j < rightArray.length) {
+            nums[k] = rightArray[j];
+            j++;
+            k++;
+        }
+    }
+
+    /** Method Name: copyRemainingElements
+     * @Author Abhay Manoj
+     * @Date November 16, 2023
+     * @Modified November 16, 2023
+     * @Description copies remaining elements from smaller array to main array
+     * @Parameters strings - main array, leftArray - left sorted array, rightArray - right sorted array, i - index for left array, j - index for right array, k - index of merged array
+     * @Returns N/A, Data Type: Void
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private void copyRemainingElements(String[] strings, String[] leftArray, String[] rightArray, int i, int j, int k) {
+        while (i < leftArray.length) {
             strings[k] = leftArray[i];
             i++;
             k++;
-        } while (j < sizeOfRightArray) {
+        } while (j < rightArray.length) {
             strings[k] = rightArray[j];
             j++;
             k++;
