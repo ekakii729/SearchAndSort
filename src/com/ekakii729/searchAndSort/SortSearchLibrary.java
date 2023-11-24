@@ -322,6 +322,34 @@ public class SortSearchLibrary {
         else for (String string : strings) System.out.print(string + " ");
     }
 
+    /** Method Name: printArrayInColumns
+     * @Author Abhay Manoj
+     * @Date November 24, 2023
+     * @Modified November 24, 2023
+     * @Description prints first 1000 elements in array in 10 columns
+     * @Parameters N/A
+     * @Returns N/A, Data Type: Void
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public void printArrayInColumns() {
+        int maxAmountOfElements; // max amount of elements within the array
+        if (strings == null) {
+            maxAmountOfElements = Math.min(nums.length, 1000);
+            for (int i = 0; i < maxAmountOfElements; i++) {
+                if (i % 10 == 0 && i != 0) System.out.print("\n");
+                System.out.printf("%10d ", nums[i]);
+            }
+        } else {
+            maxAmountOfElements = Math.min(strings.length, 1000);
+            for (int i = 0; i < maxAmountOfElements; i++) {
+                if (i % 10 == 0) System.out.print("\n");
+                System.out.printf("%10s ", strings[i]);
+            }
+        }
+    }
+
     /** Method Name: getArrayLength
      * @Author Abhay Manoj
      * @Date November 16, 2023
@@ -343,9 +371,6 @@ public class SortSearchLibrary {
         SortSearchLibrary x = new SortSearchLibrary(new String[] {"asasda", "hrthrgf", "pyprthh", "wertg"});
 
         s.quickSort(0, s.getArrayLength() - 1);
-        s.printArray();
-        System.out.println();
-        x.quickSort(0, x.getArrayLength() - 1);
-        x.printArray();
+        s.printArrayInColumns();
     }
 }
