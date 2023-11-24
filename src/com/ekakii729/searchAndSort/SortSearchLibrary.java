@@ -103,18 +103,17 @@ public class SortSearchLibrary {
      */
 
     public void selectionSort() {
+        int minimumIndex; // the minimum index of the array
         if (strings == null) {
-            final int ARRAY_INDEX_COUNT = nums.length; // the index count of the array
-            for (int i = 0; i < ARRAY_INDEX_COUNT - 1; i++) {
-                int minimumIndex = i; // the minimum index
-                for (int j = i + 1; j < ARRAY_INDEX_COUNT; j++) if (nums[j] < nums[minimumIndex]) minimumIndex = j;
+            for (int i = 0; i < nums.length - 1; i++) {
+                minimumIndex = i;
+                for (int j = i + 1; j < nums.length; j++) if (nums[j] < nums[minimumIndex]) minimumIndex = j;
                 swap(minimumIndex, i);
             }
         } else {
-            final int ARRAY_INDEX_COUNT = strings.length; // the index count of the array
-            for (int i = 0; i < ARRAY_INDEX_COUNT - 1; i++) {
-                int minimumIndex = i; // the minimum index
-                for (int j = i + 1; j < ARRAY_INDEX_COUNT; j++) if (strings[j].compareTo(strings[minimumIndex]) < 0) minimumIndex = j;
+            for (int i = 0; i < strings.length - 1; i++) {
+                minimumIndex = i;
+                for (int j = i + 1; j < strings.length; j++) if (strings[j].compareTo(strings[minimumIndex]) < 0) minimumIndex = j;
                 swap(minimumIndex, i);
             }
         }
@@ -150,27 +149,25 @@ public class SortSearchLibrary {
      */
 
     private int partition(int lowestIndex, int highestIndex) {
+        int smallestElement = lowestIndex - 1; // the smallest element in the array
         if (strings == null) {
             int pivot = nums[highestIndex]; // the pivot point
-            int smallestElement = lowestIndex - 1; // the smallest element in the array
             for (int j = lowestIndex; j <= highestIndex; j++) {
                 if (nums[j] < pivot) {
                     smallestElement++;
                     swap(smallestElement, j);
                 }
-            } swap(smallestElement + 1, highestIndex);
-            return smallestElement + 1;
+            }
         } else {
             String pivot = strings[highestIndex]; // the pivot point
-            int smallestElement = lowestIndex - 1; // the smallest element in the array
             for (int j = lowestIndex; j <= highestIndex; j++) {
                 if (strings[j].compareTo(pivot) < 0) {
                     smallestElement++;
                     swap(smallestElement, j);
                 }
-            } swap(smallestElement + 1, highestIndex);
-            return smallestElement + 1;
-        }
+            }
+        } swap(smallestElement + 1, highestIndex);
+        return smallestElement + 1;
     }
 
     /** Method Name: mergeSort
@@ -339,5 +336,16 @@ public class SortSearchLibrary {
     public int getArrayLength() {
         if (strings == null) return nums.length;
         else return strings.length;
+    }
+
+    public static void main(String[] args) {
+        SortSearchLibrary s = new SortSearchLibrary(new int[] {2314,423,5,43,53});
+        SortSearchLibrary x = new SortSearchLibrary(new String[] {"asasda", "hrthrgf", "pyprthh", "wertg"});
+
+        s.quickSort(0, s.getArrayLength() - 1);
+        s.printArray();
+        System.out.println();
+        x.quickSort(0, x.getArrayLength() - 1);
+        x.printArray();
     }
 }
