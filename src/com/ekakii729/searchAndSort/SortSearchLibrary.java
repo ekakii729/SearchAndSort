@@ -19,34 +19,39 @@ public class SortSearchLibrary {
         this.strings = strings;
     }
 
-    /** Method Name: sequentialSearch
+    public SortSearchLibrary(SortSearchLibrary otherObject) {
+        if (otherObject.isStringsNull()) this.nums = otherObject.getNums();
+        else this.strings = otherObject.strings;
+    }
+
+    /** Method Name: linearSearch
      * @Author Abhay Manoj
      * @Date November 16, 2023
      * @Modified November 16, 2023
-     * @Description runs sequential search
+     * @Description runs linear search
      * @Parameters target - element that is being looked for
      * @Returns index of the element being looked for, Data Type: Integer
      * Dependencies: N/A
      * Throws/Exceptions: N/A
      */
 
-    public int sequentialSearch(int target) {
+    public int linearSearch(int target) {
         for (int i = 0; i < nums.length; i++) if (nums[i] == target) return i;
         return -1;
     }
 
-    /** Method Name: sequentialSearch
+    /** Method Name: linearSearch
      * @Author Abhay Manoj
      * @Date November 16, 2023
      * @Modified November 16, 2023
-     * @Description runs sequential search
+     * @Description runs linear search
      * @Parameters target - element that is being looked for
      * @Returns index of the element being looked for, Data Type: Integer
      * Dependencies: N/A
      * Throws/Exceptions: N/A
      */
 
-    public int sequentialSearch(String target) {
+    public int linearSearch(String target) {
         for (int i = 0; i < strings.length; i++) if (strings[i].equals(target)) return i;
         return -1;
     }
@@ -104,7 +109,7 @@ public class SortSearchLibrary {
 
     public void selectionSort() {
         int minimumIndex; // the minimum index of the array
-        if (strings == null) {
+        if (isStringsNull()) {
             for (int i = 0; i < nums.length - 1; i++) {
                 minimumIndex = i;
                 for (int j = i + 1; j < nums.length; j++) if (nums[j] < nums[minimumIndex]) minimumIndex = j;
@@ -150,7 +155,7 @@ public class SortSearchLibrary {
 
     private int partition(int lowestIndex, int highestIndex) {
         int smallestElement = lowestIndex - 1; // the smallest element in the array
-        if (strings == null) {
+        if (isStringsNull()) {
             int pivot = nums[highestIndex]; // the pivot point
             for (int j = lowestIndex; j <= highestIndex; j++) {
                 if (nums[j] < pivot) {
@@ -205,7 +210,7 @@ public class SortSearchLibrary {
         int sizeOfRightArray = rightMostIndex - middleIndex; //  size of the right array
         int i = 0, j = 0; // initial indexes of the two arrays
         int k = leftMostIndex; // initial index of merged subarray
-        if (strings == null) {
+        if (isStringsNull()) {
             int[] leftArray = new int[middleIndex - leftMostIndex + 1]; // the left array
             int[] rightArray = new int[rightMostIndex - middleIndex]; //  the right array
             if (sizeOfLeftArray >= 0) System.arraycopy(nums, leftMostIndex, leftArray, 0, sizeOfLeftArray);
@@ -294,7 +299,7 @@ public class SortSearchLibrary {
      */
 
     private void swap(int i, int j) {
-        if (strings == null) {
+        if (isStringsNull()) {
             int temp = nums[i];
             nums[i] = nums[j];
             nums[j] = temp;
@@ -318,7 +323,7 @@ public class SortSearchLibrary {
      */
 
     public void printArray() {
-        if (strings == null) for (int num : nums) System.out.print(num + " ");
+        if (isStringsNull()) for (int num : nums) System.out.print(num + " ");
         else for (String string : strings) System.out.print(string + " ");
     }
 
@@ -335,7 +340,7 @@ public class SortSearchLibrary {
 
     public void printArrayInColumns() {
         int maxAmountOfElements; // max amount of elements within the array
-        if (strings == null) {
+        if (isStringsNull()) {
             maxAmountOfElements = Math.min(nums.length, 1000);
             for (int i = 0; i < maxAmountOfElements; i++) {
                 if (i % 10 == 0 && i != 0) System.out.print("\n");
@@ -362,15 +367,62 @@ public class SortSearchLibrary {
      */
 
     public int getArrayLength() {
-        if (strings == null) return nums.length;
+        if (isStringsNull()) return nums.length;
         else return strings.length;
     }
 
-    public static void main(String[] args) {
-        SortSearchLibrary s = new SortSearchLibrary(new int[] {2314,423,5,43,53});
-        SortSearchLibrary x = new SortSearchLibrary(new String[] {"asasda", "hrthrgf", "pyprthh", "wertg"});
+    /** Method Name: isStringsNull
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description Checks if strings array is null
+     * @Parameters N/A
+     * @Returns if strings array is null, Data Type: Boolean
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
 
-        s.quickSort(0, s.getArrayLength() - 1);
-        s.printArrayInColumns();
+    public boolean isStringsNull() { return strings == null; }
+
+    /** Method Name: getStrings
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description returns strings array
+     * @Parameters N/A
+     * @Returns the string array, Data Type: String[]
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public String[] getStrings() { return strings; }
+
+    /** Method Name: getNums
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description returns nums array
+     * @Parameters N/A
+     * @Returns the nums array, Data Type: Integer[]
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public int[] getNums() { return nums; }
+
+    /** Method Name: getSizeOfArray
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description returns size of instantiated array
+     * @Parameters N/A
+     * @Returns size of array, Data Type: Integer
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    public int getSizeOfArray() {
+        if (isStringsNull()) return nums.length;
+        else return strings.length;
     }
 }
