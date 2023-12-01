@@ -85,23 +85,115 @@ public class Main {
         return array;
     }
 
-    private int getLinearSearch(SortSearchLibrary array) {
-        return 1;
-    }
-    private int getBinarySearchTime() {
-        return 1;
-    }
-    private int getSelectionSortTime(SortSearchLibrary array) {
-        return 1;
+    /** Method Name: getCurrentTime
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description returns current time in nanoseconds
+     * @Parameters N/A
+     * @Returns time in nanoseconds, Data Type: Long
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private static long getCurrentTime() { return System.nanoTime(); }
+
+    /** Method Name: getLinearSearchTime
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description gets time of linear search
+     * @Parameters array - array to be searched
+     * @Returns the time that linear search takes, Data Type: Long
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private long getLinearSearchTime(SortSearchLibrary array) {
+        int target = 10; // a number I selected at random
+        long currentTime = getCurrentTime(); // the current time
+        array.linearSearch(target);
+        long nextTime = getCurrentTime(); // the time after the search has run
+        return nextTime - currentTime;
     }
 
-    private int getQuickSortTime(SortSearchLibrary array) {
-        return 1;
+    /** Method Name: getBinarySearchTime
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description gets time of binary search
+     * @Parameters array - array to be searched
+     * @Returns the time that binary search takes, Data Type: Long
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private long getBinarySearchTime(SortSearchLibrary array) {
+        int target = 10; //  a number I selected at random
+        long currentTime = getCurrentTime(); // the current time
+        array.binarySearch(0, array.getArrayLength() - 1, target);
+        long nextTime = getCurrentTime(); // the time after the search has run
+        return nextTime - currentTime;
     }
 
-    private int getMergeSortTime(SortSearchLibrary array) {
-        return 1;
+    /** Method Name: getSelectionSortTime
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description gets time of selection sort
+     * @Parameters array - array to be sorted
+     * @Returns the time that selection sort takes, Data Type: Long
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private long getSelectionSortTime(SortSearchLibrary array) {
+        SortSearchLibrary newArray =  new SortSearchLibrary(array); // a copy of the array
+        long currentTime = getCurrentTime(); // the current time
+        newArray.selectionSort();
+        long nextTime = getCurrentTime(); // the time after the search has run
+        return nextTime - currentTime;
     }
+
+    /** Method Name: getQuickSortTime
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description gets time of quick sort
+     * @Parameters array - array to be sorted
+     * @Returns the time that quick sort takes, Data Type: Long
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private long getQuickSortTime(SortSearchLibrary array) {
+        SortSearchLibrary newArray =  new SortSearchLibrary(array); // a copy of the array
+        long currentTime = getCurrentTime(); // the current time
+        newArray.quickSort(0, newArray.getArrayLength() - 1);
+        long nextTime = getCurrentTime(); // the time after the search has run
+        return nextTime - currentTime;
+    }
+
+    /** Method Name: getMergeSortTime
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description gets time of merge sort
+     * @Parameters array - array to be sorted
+     * @Returns the time that merge sort takes, Data Type: Long
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private long getMergeSortTime(SortSearchLibrary array) {
+        SortSearchLibrary newArray =  new SortSearchLibrary(array); // a copy of the array
+        long currentTime = getCurrentTime(); // the current time
+        newArray.mergeSort(0, newArray.getArrayLength() - 1);
+        long nextTime = getCurrentTime(); // the time after the search has run
+        return nextTime - currentTime;
+    }
+
+
 
     public static void main(String[] args) {
 

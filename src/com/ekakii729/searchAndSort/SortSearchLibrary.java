@@ -409,20 +409,4 @@ public class SortSearchLibrary {
      */
 
     public int[] getNums() { return nums; }
-
-    /** Method Name: getSizeOfArray
-     * @Author Abhay Manoj
-     * @Date December 01, 2023
-     * @Modified December 01, 2023
-     * @Description returns size of instantiated array
-     * @Parameters N/A
-     * @Returns size of array, Data Type: Integer
-     * Dependencies: N/A
-     * Throws/Exceptions: N/A
-     */
-
-    public int getSizeOfArray() {
-        if (isStringsNull()) return nums.length;
-        else return strings.length;
-    }
 }
