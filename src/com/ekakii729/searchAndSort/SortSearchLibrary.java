@@ -1,7 +1,7 @@
 /*
  * Author: Abhay Manoj
  * Purpose: A library that contains several searches and sorts
- * Date of Creation: October 20, 2023
+ * Date of Creation: November 16, 2023
  */
 
 package com.ekakii729.searchAndSort;
@@ -156,15 +156,15 @@ public class SortSearchLibrary {
     private int partition(int lowestIndex, int highestIndex) {
         int smallestElement = lowestIndex - 1; // the smallest element in the array
         if (isStringsNull()) {
-            int pivot = nums[highestIndex]; // the pivot point
-            for (int j = lowestIndex; j <= highestIndex; j++) {
-                if (nums[j] < pivot) {
+            int pivot = nums[highestIndex / 2]; // the pivot point
+            for (int j = lowestIndex; j < highestIndex; j++) {
+                if (nums[j] <= pivot) {
                     smallestElement++;
                     swap(smallestElement, j);
                 }
             }
         } else {
-            String pivot = strings[highestIndex]; // the pivot point
+            String pivot = strings[highestIndex / 2]; // the pivot point
             for (int j = lowestIndex; j <= highestIndex; j++) {
                 if (strings[j].compareTo(pivot) < 0) {
                     smallestElement++;
@@ -409,4 +409,10 @@ public class SortSearchLibrary {
      */
 
     public int[] getNums() { return nums; }
+
+    public static void main(String[] args) {
+        SortSearchLibrary s = new SortSearchLibrary(new int[] {1,2,31,23,32,4,35,345,3,423,4,5,346,54532});
+        s.quickSort(0, s.getArrayLength() - 1);
+        s.printArrayInColumns();
+    }
 }

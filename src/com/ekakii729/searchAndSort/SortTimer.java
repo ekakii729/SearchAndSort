@@ -1,7 +1,13 @@
+/*
+ * Author: Abhay Manoj
+ * Purpose: A class that analyzes the searches and sorts in the other file
+ * Date of Creation: November 16, 2023
+ */
+
 package com.ekakii729.searchAndSort;
 import java.util.*;
 
-public class Main {
+public class SortTimer {
 
     /** Method Name: generateRandomString
      * @Author Abhay Manoj
@@ -48,7 +54,7 @@ public class Main {
      */
 
     private static void randomizeArray(Random random, String[] array, int bound) {
-        for (int i = 0; i < array.length; i++) array[i] = generateRandomString(random, 10);
+        for (int i = 0; i < array.length; i++) array[i] = generateRandomString(random, bound);
     }
 
     /** Method Name: createIntArray
@@ -103,14 +109,13 @@ public class Main {
      * @Date December 01, 2023
      * @Modified December 01, 2023
      * @Description gets time of linear search
-     * @Parameters array - array to be searched
+     * @Parameters array - array to be searched, target - the number being searched for
      * @Returns the time that linear search takes, Data Type: Long
      * Dependencies: N/A
      * Throws/Exceptions: N/A
      */
 
-    private long getLinearSearchTime(SortSearchLibrary array) {
-        int target = 10; // a number I selected at random
+    private static long getLinearSearchTime(SortSearchLibrary array, int target) {
         long currentTime = getCurrentTime(); // the current time
         array.linearSearch(target);
         long nextTime = getCurrentTime(); // the time after the search has run
@@ -122,16 +127,17 @@ public class Main {
      * @Date December 01, 2023
      * @Modified December 01, 2023
      * @Description gets time of binary search
-     * @Parameters array - array to be searched
+     * @Parameters array - array to be searched, target - the number being searched for
      * @Returns the time that binary search takes, Data Type: Long
      * Dependencies: N/A
      * Throws/Exceptions: N/A
      */
 
-    private long getBinarySearchTime(SortSearchLibrary array) {
-        int target = 10; //  a number I selected at random
+    private static long getBinarySearchTime(SortSearchLibrary array, int target) {
+        SortSearchLibrary newArray = new SortSearchLibrary(array); // the array passed in, but will be sorted
+        newArray.quickSort(0, newArray.getArrayLength() - 1);
         long currentTime = getCurrentTime(); // the current time
-        array.binarySearch(0, array.getArrayLength() - 1, target);
+        newArray.binarySearch(0, array.getArrayLength() - 1, target);
         long nextTime = getCurrentTime(); // the time after the search has run
         return nextTime - currentTime;
     }
@@ -147,7 +153,7 @@ public class Main {
      * Throws/Exceptions: N/A
      */
 
-    private long getSelectionSortTime(SortSearchLibrary array) {
+    private static long getSelectionSortTime(SortSearchLibrary array) {
         SortSearchLibrary newArray =  new SortSearchLibrary(array); // a copy of the array
         long currentTime = getCurrentTime(); // the current time
         newArray.selectionSort();
@@ -166,7 +172,7 @@ public class Main {
      * Throws/Exceptions: N/A
      */
 
-    private long getQuickSortTime(SortSearchLibrary array) {
+    private static long getQuickSortTime(SortSearchLibrary array) {
         SortSearchLibrary newArray =  new SortSearchLibrary(array); // a copy of the array
         long currentTime = getCurrentTime(); // the current time
         newArray.quickSort(0, newArray.getArrayLength() - 1);
@@ -185,7 +191,7 @@ public class Main {
      * Throws/Exceptions: N/A
      */
 
-    private long getMergeSortTime(SortSearchLibrary array) {
+    private static long getMergeSortTime(SortSearchLibrary array) {
         SortSearchLibrary newArray =  new SortSearchLibrary(array); // a copy of the array
         long currentTime = getCurrentTime(); // the current time
         newArray.mergeSort(0, newArray.getArrayLength() - 1);
@@ -193,9 +199,67 @@ public class Main {
         return nextTime - currentTime;
     }
 
+    /** Method Name: printTimes
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description prints the time of each method
+     * @Parameters array - array to be sorted
+     * @Returns N/A, Data Type: Void
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
 
+    private static void printTimes(SortSearchLibrary array) {
+        final int NUMBER_OF_TIMES = 3; // the number of times to average
+        final int TARGET = 5; // a number that I chose
+        long linearSearchTimes = 0, binarySearchTimes = 0, selectionSortTimes = 0, quickSortTimes = 0, mergeSortTimes = 0;
+        for (int i = 0; i < NUMBER_OF_TIMES; i++) {
+            linearSearchTimes += getLinearSearchTime(array, TARGET) / NUMBER_OF_TIMES;
+            binarySearchTimes += getBinarySearchTime(array, TARGET) / NUMBER_OF_TIMES;
+            selectionSortTimes += getSelectionSortTime(array) / NUMBER_OF_TIMES;
+            quickSortTimes += getQuickSortTime(array) / NUMBER_OF_TIMES;
+            mergeSortTimes += getMergeSortTime(array) / NUMBER_OF_TIMES;
+        } double searchTimeDifference = (double) binarySearchTimes / linearSearchTimes;
+        double quickSortSelectionSortDifference = (double) quickSortTimes / selectionSortTimes;
+        double mergeSortSelectionSortDifference = (double) mergeSortTimes / selectionSortTimes;
+        double quickSortMergeSortDifference = (double) quickSortTimes / mergeSortTimes;
+        System.out.printf("\nLinear Search Time: %dns\nBinary Search Time: %dns\nSelection Sort Time: %dns\nQuickSort Time: %dns\nMergeSort Time: %dns\n" , linearSearchTimes, binarySearchTimes, selectionSortTimes, quickSortTimes, mergeSortTimes);
+        System.out.printf("\nBinary Search took %.2fx the time compared to Linear Search.\nQuick Sort took %.2fx the time compared to Selection Sort.\nMerge Sort took %.2fx the time compared to Selection Sort.\nQuick Sort took %.2fx the time compared to Merge Sort.\n", searchTimeDifference, quickSortSelectionSortDifference, mergeSortSelectionSortDifference, quickSortMergeSortDifference);
+    }
+
+    /** Method Name: printReport
+     * @Author Abhay Manoj
+     * @Date December 01, 2023
+     * @Modified December 01, 2023
+     * @Description prints the report
+     * @Parameters N/A
+     * @Returns N/A, Data Type: Void
+     * Dependencies: N/A
+     * Throws/Exceptions: N/A
+     */
+
+    private static void printReport() {
+        String toPrint = """
+                
+                As you can see from the data above, Binary Search is much faster than Linear Search. After running this
+                file many times, I have found the average speed for Binary Search to be anywhere from 3-25x faster than linear search.
+                Quick Sort is also much faster than Selection Sort, as it tends to be about 6.5x faster than Selection Sort.
+                This is the same with Merge Sort, where I have found it to be 50x faster than Selection Sort and 6 times faster
+                than Quick Sort.
+                
+                Binary Search being faster than Linear Search makes complete sense as Binary Search's time complexity is logn, where
+                the other's is just n. The same thing applies to Selection Sort versus Quick Sort and Merge Sort, as SS is n^2 and the other two
+                are nlogn. However what I was not expecting to see was the massive time difference between Merge Sort and Quick Sort. I
+                assume that throughout my testing I have just constantly had bad pivots, but it is so consistent that it is almost like
+                Merge Sort is just faster.""";
+        System.out.println(toPrint);
+    }
 
     public static void main(String[] args) {
-
+        int[] arr = createIntArray(new Random(), 20000);
+        SortSearchLibrary s = new SortSearchLibrary(arr);
+        printTimes(s);
+        printReport();
     }
 }
